@@ -46,12 +46,16 @@ public class JSONLoader : MonoBehaviour
             //JSONObject obj = new JSONObject(_jsonString);
 
             //Config obj = JsonUtility.FromJson<Config>(_jsonString);
+            Newtonsoft.Json.Utilities.AotHelper.EnsureList<Config.Museum>();
+            Newtonsoft.Json.Utilities.AotHelper.EnsureList<Config.Exhibit>();
+            
             Config obj = Newtonsoft.Json.JsonConvert.DeserializeObject<Config>(_jsonString);
 
             //Debug.Log(obj);
 
             foreach (Config.Museum museum in obj.museums)
             {
+
                 Museum MuseumInstance = Instantiate(museumPrefab, museumParent);
 
                 MuseumInstance.Init(museum.name, null, orgPanel, objPanel, search, viewPanel, museumExhibitsParent, (JSONLoader.Config.Exhibit[])museum.exhibits);
